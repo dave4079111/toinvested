@@ -1,0 +1,14 @@
+import { OpenAI } from 'openai';
+
+const openai = new OpenAI({ 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});
+
+export async function POST(req: Request) {
+  const { prompt } = await req.json();
+  const completion = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [{ role: 'user', content: `Build a real estate landing page: ${prompt}. Return only HTML.` }],
+  });
+  return new Response(completion.choices[0].message.content, {
+    headers: { 'Content-Type': 'text/html' },
+  });
+}
