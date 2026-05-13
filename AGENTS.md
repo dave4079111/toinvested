@@ -19,3 +19,4 @@ The server starts on `http://localhost:3000`. There are no frontend pages — on
 - **`next build` requires `OPENAI_API_KEY`** — the OpenAI client is instantiated at module scope in `app/api/generate-site/route.ts`, so the build step tries to initialize it and fails without the key.
 - **No `tsconfig.json` is committed** — Next.js auto-generates one on first `npm run dev`.
 - The `TS` file at the repo root is a scratch file and is not part of the application.
+- **Testing without `OPENAI_API_KEY`**: The dev server starts and routes requests correctly without the key. `POST /api/generate-site` returns HTTP 500 with a clear error from the OpenAI SDK. This is sufficient to verify routing and server health. A full end-to-end test (receiving generated HTML) requires the key.
